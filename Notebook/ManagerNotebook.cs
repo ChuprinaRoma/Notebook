@@ -36,12 +36,22 @@ namespace Notebook
                 listPerson = null;
             }).Start();
         }
-
-        public void Update()
+        public void Read(string type, string val)
         {
             new Thread(() =>
             {
-                
+                dAOSql.Read(type, val);
+                SetUI.SetTable();
+                listPerson = null;
+            }).Start();
+        }
+
+        public void Update(int id, string fName, string lName, int number)
+        {
+            new Thread(() =>
+            {
+                dAOSql.Update(id, fName, lName, number);
+                SetUI.UpdateRows(id.ToString(), fName, lName, number);
             }).Start();
         }
 
